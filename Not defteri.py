@@ -3,6 +3,8 @@ Metin belgesi yazıp kaydetme, metin belgesi açma ve düzenleme,
 tema seçenekleri, yazı seçenekleri
 """
 from tkinter import *
+from tkinter.filedialog import askopenfilename, asksaveasfilename
+
 import webbrowser
 
 # Pencere
@@ -11,34 +13,123 @@ import webbrowser
 pencere = Tk()
 pencere.title("Not Defterim🖋️")
 pencere.resizable(False, False)
-pencere.rowconfigure(
-        0,
-        minsize = 500,
-        weight = 1
-)
-
-pencere.columnconfigure(
-        1,
-        minsize = 500,
-        weight = 1
-)
-
+pencere.geometry("800x500")
 # Fonksiyonlar
 
 def iletişim_link_aç() :
-        webbrowser.open("https://akademi.icerikbulutu.com/blog/hakkimizda-sayfasi-nasil-yazilir/")        
+    webbrowser.open("https://github.com/UmutBayri")        
 
+
+def dosya_aç():
+    """Open a file for editing."""
+    filepath = askopenfilename(
+        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")]
+    )
+    if not filepath:
+        return
+    metin.delete(1.0, END)
+    with open(filepath, "r") as input_file:
+        text = input_file.read()
+        metin.insert(END, text)
+    pencere.title(f"Simple Text Editor - {filepath}")
+
+def dosya_kaydet():
+    """Save the current file as a new file."""
+    filepath = asksaveasfilename(
+        defaultextension="txt",
+        filetypes=[("Text Files", "*.txt"), ("All Files", "*.*")],
+    )
+    if not filepath:
+        return
+    with open(filepath, "w") as output_file:
+        text = metin.get(1.0, END)
+        output_file.write(text)
+    pencere.title(f"Simple Text Editor - {filepath}")
+
+
+# Fonk Tema
+
+def tema_değiştir_standart() :
+    
+    çerçeve1.config(bg = "#f0f0f0")
+    çerçeve2.config(bg = "#f0f0f0")
+    metin.config(bg = "#FFFFFF", bd = 0, font = ("Arial", 12), 
+    insertbackground = "#000000")
+    imza.config(bg = "#f0f0f0", fg = "#000000", font = ("Arial"))
+    kaydet_btn.config(
+        bg = "#f0f0f0",
+        fg = "#000000",
+        activebackground = "#F5F1F0", 
+        font = ("Arial")
+        )
+    aç_btn.config(
+        bg = "#f0f0f0",
+        fg = "#000000",
+        activebackground = "#F5F1F0",
+        font = ("Arial")
+        )
+def tema_değiştir_koyu() :
+        
+    çerçeve1.config(bg = "#2C2E31")
+    çerçeve2.config(bg = "#2C2E31")
+    metin.config(bg = "#232629", fg = "#FFFFFF", bd = 3, font = ("Tİmes", 12), 
+    insertbackground = "#FFFFFF")
+    imza.config(bg = "#2C2E31", fg = "#FFFFFF", font = ("Times"))
+    kaydet_btn.config(
+        bg = "#AF689A",
+        activebackground = "#A47D98", 
+        fg = "#FFFFFF",
+        font = ("Times")
+        )
+    aç_btn.config(
+        bg = "#AF689A",
+        fg = "#FFFFFF",
+        activebackground = "#A47D98",
+        font = ("Times")
+        )
+def tema_değiştir_mrrobot() :
+    
+    çerçeve1.config(bg = "#4B926F")
+    çerçeve2.config(bg = "#4B926F")
+    metin.config(bg = "#000000", 
+        fg = "#48823F", 
+        bd = 0, 
+        font = ("Terminal", 12), 
+        insertbackground = "#FFFFFF")
+    imza.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
+    kaydet_btn.config(
+        bg = "#4B926F",
+        fg = "#000000",
+        activebackground = "#6FE5AA", 
+        font = ("Terminal")
+        )
+    aç_btn.config(
+        bg = "#4B926F",
+        fg = "#000000",
+        activebackground = "#6FE5AA",
+        font = ("Terminal")
+        )
 def tema_değiştir_prenses() :
-        bg = "#EDD3CD"
-        metin_bg = "#EBDFDC"
-        pass
+    çerçeve1.config(bg = "#EDD3CD")
+    çerçeve2.config(bg = "#EDD3CD")
+    metin.config(bg = "#EBDFDC", bd = 0, font = ("Candara", 12), 
+    insertbackground = "#000000")
+    imza.config(bg = "#EDD3CD", font = ("Candara"))
+    kaydet_btn.config(
+        bg = "#EDD3CD",
+        activebackground = "#EDD9CD", 
+        font = ("Candara")
+        )
+    aç_btn.config(
+        bg = "#EDD3CD",
+        activebackground = "#EDD9CD",
+        font = ("Candara")
+        ) 
 
 # Çerçeveler
 
-çerçeve1 = Frame(pencere,
-        bg = "#EDD3CD")
-çerçeve2 = Frame(pencere,
-        bg = "#EDD3CD")
+çerçeve1 = Frame(pencere)
+çerçeve2 = Frame(pencere)
 
 
 ### Menu
@@ -71,21 +162,25 @@ tema_sçnk = Menu(seçenekler, tearoff = 0)
 
 tema_sçnk.add_command(
         label = "Standart",
-        # command = 
+        command = tema_değiştir_standart
 )
 
 tema_sçnk.add_command(
-        label = "Koyu"
+        label = "Koyu",
+        font = ("Georgia", 9, "bold"),
+        command = tema_değiştir_koyu
 )
 
 tema_sçnk.add_command(
         label = "Mr. Robot",
-        font = ("Terminal", 9)
+        font = ("Terminal", 9),
+        command = tema_değiştir_mrrobot
 )
 
 tema_sçnk.add_command(
         label = "Prenses",
-        font = ("Candara")
+        font = ("Candara"),
+        command = tema_değiştir_prenses
 )
 
 
@@ -115,12 +210,6 @@ font_sçnk.add_command(
         label = "Font3"
 )
 
-#- Yazı Boyutu
-
-yazı_sçnk.add_command(
-        label = "Boyut"
-)
-
 # Menu Yerleştirme
 
 seçenekler.add_cascade(
@@ -148,34 +237,25 @@ seçenekler.add_command(
 
 metin = Text(çerçeve2,
         relief = SUNKEN,
-        bg = "#EBDFDC",
-        font = ("Terminal", 15)
+        font = (11)
 )
-
-
-
-
-
 
 # Butonlar
 
 kaydet_btn = Button(
         çerçeve1,
         width = 13,
-        bg = "#EDD3CD",
         text = "Kaydet",
-        activebackground = "#EDD9CD", 
         bd = 1,
-        # command = kaydet        
+        command = dosya_kaydet        
 )
 
 aç_btn = Button(
         çerçeve1,
         width = 13,
-        bg = "#EDD3CD",
-        activebackground = "#EDD9CD", 
         text = "Aç",
-        bd = 1
+        bd = 1,
+        command = dosya_aç
 )
 
 # İmza
@@ -185,7 +265,6 @@ Yapım✨"""
 imza = Label(
         çerçeve1,
         text = imza_mtn,
-        bg = "#EDD3CD",
         font = ("Courier", 12)
 )
 imza.pack(side = BOTTOM

@@ -1,21 +1,35 @@
-"""
-Metin belgesi yazıp kaydetme, metin belgesi açma ve düzenleme,
-tema seçenekleri, yazı seçenekleri
-"""
 from tkinter import *
+from tkinter import messagebox
+
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
 import webbrowser
 
 # Pencere
 
-
 pencere = Tk()
 pencere.title("Not Defterim🖋️")
 pencere.resizable(False, False)
 pencere.geometry("800x500")
-# Fonksiyonlar
 
+
+## Fonksiyonlar
+hakkında_yazısı = \
+"""Farklı temalar ve özellikler
+barındıran metin editörü.
+
+Özellikler :
+- 4 adet tema
+- 3 farklı font seçeneği
+- Basit arayüz
+Yakında :
+- Daha fazla tema
+- Optimizasyon seçenekleri
+- Müzikçalar
+"""
+def rehber_aç() :
+    messagebox.showinfo("Nasıl Kullanılır ?", hakkında_yazısı)
+# Fonk Kaydetme Açma
 def iletişim_link_aç() :
     webbrowser.open("https://github.com/UmutBayri")        
 
@@ -53,9 +67,9 @@ def tema_değiştir_standart() :
     
     çerçeve1.config(bg = "#f0f0f0")
     çerçeve2.config(bg = "#f0f0f0")
-    metin.config(bg = "#FFFFFF", bd = 0, font = ("Arial", 12), 
+    metin.config(bg = "#FFFFFF", fg = "#000000", bd = 0, font = ("Arial", 12), 
     insertbackground = "#000000")
-    imza.config(bg = "#f0f0f0", fg = "#000000", font = ("Arial"))
+    imza.config(bg = "#f0f0f0", fg = "#000000", font = ("Courier"))
     kaydet_btn.config(
         bg = "#f0f0f0",
         fg = "#000000",
@@ -74,7 +88,7 @@ def tema_değiştir_koyu() :
     çerçeve2.config(bg = "#2C2E31")
     metin.config(bg = "#232629", fg = "#FFFFFF", bd = 3, font = ("Tİmes", 12), 
     insertbackground = "#FFFFFF")
-    imza.config(bg = "#2C2E31", fg = "#FFFFFF", font = ("Times"))
+    imza.config(bg = "#2C2E31", fg = "#FFFFFF", font = ("Courier"))
     kaydet_btn.config(
         bg = "#AF689A",
         activebackground = "#A47D98", 
@@ -95,7 +109,7 @@ def tema_değiştir_mrrobot() :
         fg = "#48823F", 
         bd = 0, 
         font = ("Terminal", 12), 
-        insertbackground = "#FFFFFF")
+        insertbackground = "green")
     imza.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
     kaydet_btn.config(
         bg = "#4B926F",
@@ -112,9 +126,9 @@ def tema_değiştir_mrrobot() :
 def tema_değiştir_prenses() :
     çerçeve1.config(bg = "#EDD3CD")
     çerçeve2.config(bg = "#EDD3CD")
-    metin.config(bg = "#EBDFDC", bd = 0, font = ("Candara", 12), 
+    metin.config(bg = "#EBDFDC", fg = "#000000", bd = 0, font = ("Candara", 12), 
     insertbackground = "#000000")
-    imza.config(bg = "#EDD3CD", font = ("Candara"))
+    imza.config(bg = "#EDD3CD", font = ("Courier"))
     kaydet_btn.config(
         bg = "#EDD3CD",
         activebackground = "#EDD9CD", 
@@ -130,7 +144,6 @@ def tema_değiştir_prenses() :
 
 çerçeve1 = Frame(pencere)
 çerçeve2 = Frame(pencere)
-
 
 ### Menu
 # Menu barı
@@ -152,9 +165,14 @@ menubar.add_cascade(
 )
 
 hakkında.add_command(
+        label = "Nasıl Kullanılır?",
+        command = rehber_aç
+)
+hakkında.add_command(
         label = "İletişim",
         command = iletişim_link_aç
 )
+
 ## Seçenekler listesi
 # Tema
 
@@ -182,9 +200,6 @@ tema_sçnk.add_command(
         font = ("Candara"),
         command = tema_değiştir_prenses
 )
-
-
-
 
 # Yazı Seçenekleri
 #- Fontlar
@@ -221,6 +236,7 @@ seçenekler.add_cascade(
         label = "Tema",
         menu = tema_sçnk
 )
+
 seçenekler.add_separator() # Seçenekler arası çizgi çeker.
 
 seçenekler.add_command(
@@ -228,16 +244,13 @@ seçenekler.add_command(
         command = pencere.destroy
 )
 
-
-
-
-
-
 # Metin
 
 metin = Text(çerçeve2,
         relief = SUNKEN,
-        font = (11)
+        bd = 0,
+        font = ("Arial", 12), 
+        insertbackground = "#000000",
 )
 
 # Butonlar
@@ -247,6 +260,8 @@ kaydet_btn = Button(
         width = 13,
         text = "Kaydet",
         bd = 1,
+        activebackground = "#F5F1F0", 
+        font = ("Arial"),
         command = dosya_kaydet        
 )
 
@@ -255,13 +270,13 @@ aç_btn = Button(
         width = 13,
         text = "Aç",
         bd = 1,
+        activebackground = "#F5F1F0", 
+        font = ("Arial"),
         command = dosya_aç
 )
 
 # İmza
-imza_mtn = \
-"""Dostlar
-Yapım✨"""
+imza_mtn = "Dostlar\nYapım✨"
 imza = Label(
         çerçeve1,
         text = imza_mtn,

@@ -1,17 +1,19 @@
+# https://towardsdatascience.com/how-to-build-an-mp3-music-player-with-python-619e0c0dcee2 
+
 from tkinter import *
 from tkinter import messagebox
-
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
+import pygame
 import webbrowser
+import os
 
 # Pencere
 
 pencere = Tk()
 pencere.title("Not Defterim🖋️")
 pencere.resizable(False, False)
-pencere.geometry("800x500")
-
+pencere.geometry("800x500+200+200")
 
 ## Fonksiyonlar
 hakkında_yazısı = \
@@ -27,6 +29,7 @@ Yakında :
 - Optimizasyon seçenekleri
 - Müzikçalar
 """
+
 def rehber_aç() :
     messagebox.showinfo("Nasıl Kullanılır ?", hakkında_yazısı)
 # Fonk Kaydetme Açma
@@ -141,9 +144,70 @@ def tema_değiştir_prenses() :
         ) 
 
 # Çerçeveler
+temel_çerçeve1 = Frame(pencere)
+temel_çerçeve2 = Frame(pencere)
 
-çerçeve1 = Frame(pencere)
-çerçeve2 = Frame(pencere)
+
+çerçeve1 = Frame(temel_çerçeve1)
+çerçeve2 = Frame(temel_çerçeve2)
+çerçeve3 = Frame(temel_çerçeve1)
+çerçeve4 = Frame(temel_çerçeve1)
+
+
+### Müzik
+başlat_resim = PhotoImage(file = "başlat.png")
+durdur_resim = PhotoImage(file = "durdur.png")
+bitir_resim = PhotoImage(file = "bitir.png")
+
+directory = r"C:\Users\Administrator\Desktop\müzikler"
+os.chdir(directory)
+şarkı_listesi = os.listdir()
+
+oynatma_listesi = Listbox(
+        çerçeve4,
+        selectmode = SINGLE,
+) 
+
+pygame.init()
+pygame.mixer.init()
+
+def oynat():
+    pygame.mixer.music.load(oynatma_listesi.get(ACTIVE))
+    pygame.mixer.music.play(-1)
+
+def bitir():
+    pygame.mixer.music.stop()
+
+def durdur():
+    pygame.mixer.music.pause()
+
+def devam_et():
+    pygame.mixer.music.unpause()
+
+
+
+
+for şarkı in şarkı_listesi :
+        sıra = 0
+        oynatma_listesi.insert(sıra, şarkı)
+
+başlatma_btn = Button(
+        çerçeve3,
+        image = başlat_resim,
+        command = oynat
+)
+
+durdurma_btn = Button(
+        çerçeve3,
+        image = durdur_resim,
+        command = durdur
+)
+
+bitirme_btn = Button(
+    çerçeve3,
+    image = bitir_resim,
+    command = bitir
+)
 
 ### Menu
 # Menu barı
@@ -278,21 +342,24 @@ aç_btn = Button(
 # İmza
 imza_mtn = "Dostlar\nYapım✨"
 imza = Label(
-        çerçeve1,
+        çerçeve4,
         text = imza_mtn,
         font = ("Courier", 12)
 )
-imza.pack(side = BOTTOM
-)
-# Yerleştirme
- 
-çerçeve1.pack(side = LEFT,
-                fill = Y,
-        )
-çerçeve2.pack(side = RIGHT,
-                fill = BOTH
-        )
+### Yerleştirme
+## Çerçeveler
+temel_çerçeve1.pack(side = LEFT, fill = Y)
+temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
 
+çerçeve1.pack()
+çerçeve4.pack(side = BOTTOM, fill = X)
+
+çerçeve3.pack(side = BOTTOM)
+
+çerçeve2.pack(fill = BOTH, expand = True)
+
+
+# Çerçeve1
 kaydet_btn.pack(
         padx = 20,
         pady = 15
@@ -302,12 +369,29 @@ aç_btn.pack(
         padx = 20
         )
 
-
+# Çerçeve2
 metin.pack(
         fill = BOTH,
         expand = True,
         padx = 5,
         pady = 5  
 )
+
+# Çerçeve3
+başlatma_btn.grid(row = 0)
+durdurma_btn.grid(row = 0, column=1)
+bitirme_btn.grid(row = 0, column = 2)
+#Çerçeve4
+
+oynatma_listesi.pack(
+    padx = 5,
+    fill = X,
+    expand = True
+)
+
+imza.pack(pady = 10)
+
+
+
 
 pencere.mainloop()

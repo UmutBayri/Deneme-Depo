@@ -1,8 +1,6 @@
-# https://towardsdatascience.com/how-to-build-an-mp3-music-player-with-python-619e0c0dcee2 
-
 from tkinter import *
 from tkinter import messagebox
-from tkinter.filedialog import askopenfilename, asksaveasfilename
+from tkinter.filedialog import askdirectory, askopenfilename, asksaveasfilename
 
 import pygame
 import webbrowser
@@ -27,7 +25,6 @@ barındıran metin editörü.
 Yakında :
 - Daha fazla tema
 - Optimizasyon seçenekleri
-- Müzikçalar
 """
 
 def rehber_aç() :
@@ -70,15 +67,24 @@ def tema_değiştir_standart() :
     
     çerçeve1.config(bg = "#f0f0f0")
     çerçeve2.config(bg = "#f0f0f0")
-    metin.config(bg = "#FFFFFF", fg = "#000000", bd = 0, font = ("Arial", 12), 
-    insertbackground = "#000000")
+    çerçeve3.config(bg = "#f0f0f0")
+    çerçeve4.config(bg = "#f0f0f0")
+    çerçeve5.config(bg = "#f0f0f0")
+
+    metin.config(bg = "#F5F1F0", fg = "#000000", bd = 1, font = ("Arial", 12), insertbackground = "#000000")
     imza.config(bg = "#f0f0f0", fg = "#000000", font = ("Courier"))
+    oynatma_listesi.config(bg = "#F5F1F0", fg = "#000000")
+    el_btn.config(bg = "#f0f0f0")
+    müzik_çalar.config(bg = "#f0f0f0", fg = "#000000", font = ("Arial"))
+
+
     kaydet_btn.config(
         bg = "#f0f0f0",
         fg = "#000000",
         activebackground = "#F5F1F0", 
         font = ("Arial")
         )
+    
     aç_btn.config(
         bg = "#f0f0f0",
         fg = "#000000",
@@ -89,9 +95,17 @@ def tema_değiştir_koyu() :
         
     çerçeve1.config(bg = "#2C2E31")
     çerçeve2.config(bg = "#2C2E31")
+    çerçeve3.config(bg = "#2C2E31")
+    çerçeve4.config(bg = "#2C2E31")
+    çerçeve5.config(bg = "#2C2E31")
+
     metin.config(bg = "#232629", fg = "#FFFFFF", bd = 3, font = ("Tİmes", 12), 
     insertbackground = "#FFFFFF")
     imza.config(bg = "#2C2E31", fg = "#FFFFFF", font = ("Courier"))
+    oynatma_listesi.config(bg = "#2C2E31", fg = "#FFFFFF")
+    el_btn.config(bg = "#2C2E31")
+    müzik_çalar.config(bg = "#2C2E31", fg = "#FFFFFF", font = ("Courier"))
+
     kaydet_btn.config(
         bg = "#AF689A",
         activebackground = "#A47D98", 
@@ -108,12 +122,21 @@ def tema_değiştir_mrrobot() :
     
     çerçeve1.config(bg = "#4B926F")
     çerçeve2.config(bg = "#4B926F")
+    çerçeve3.config(bg = "#4B926F")
+    çerçeve4.config(bg = "#4B926F")
+    çerçeve5.config(bg = "#4B926F")
+
     metin.config(bg = "#000000", 
         fg = "#48823F", 
         bd = 0, 
         font = ("Terminal", 12), 
         insertbackground = "green")
     imza.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
+    oynatma_listesi.config(bg = "#4B926F", fg = "#000000")
+    el_btn.config(bg = "#4B926F")
+    müzik_çalar.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
+
+
     kaydet_btn.config(
         bg = "#4B926F",
         fg = "#000000",
@@ -129,9 +152,18 @@ def tema_değiştir_mrrobot() :
 def tema_değiştir_prenses() :
     çerçeve1.config(bg = "#EDD3CD")
     çerçeve2.config(bg = "#EDD3CD")
+    çerçeve3.config(bg = "#EDD3CD")
+    çerçeve4.config(bg = "#EDD3CD")
+    çerçeve5.config(bg = "#EDD3CD")
+
     metin.config(bg = "#EBDFDC", fg = "#000000", bd = 0, font = ("Candara", 12), 
     insertbackground = "#000000")
     imza.config(bg = "#EDD3CD", font = ("Courier"))
+    oynatma_listesi.config(bg = "#EDD3CD", fg = "#000000")
+    el_btn.config(bg = "#EDD3CD")
+    müzik_çalar.config(bg = "#EDD3CD", fg = "#000000", font = ("Candara"))
+
+
     kaydet_btn.config(
         bg = "#EDD3CD",
         activebackground = "#EDD9CD", 
@@ -150,26 +182,42 @@ temel_çerçeve2 = Frame(pencere)
 
 çerçeve1 = Frame(temel_çerçeve1)
 çerçeve2 = Frame(temel_çerçeve2)
-çerçeve3 = Frame(temel_çerçeve1)
-çerçeve4 = Frame(temel_çerçeve1)
-
+çerçeve3 = Frame(temel_çerçeve1, relief = GROOVE, bd = 2)
+çerçeve4 = Frame(temel_çerçeve1, relief = GROOVE, bd = 4)
+çerçeve5 = Frame(temel_çerçeve1)
 
 ### Müzik
 başlat_resim = PhotoImage(file = "başlat.png")
-durdur_resim = PhotoImage(file = "durdur.png")
+bd_resim = PhotoImage(file = "bd.png")
 bitir_resim = PhotoImage(file = "bitir.png")
+içe_aktar_resim = PhotoImage(file = "içe aktar.png")
 
-directory = r"C:\Users\Administrator\Desktop\müzikler"
-os.chdir(directory)
-şarkı_listesi = os.listdir()
+müzik_çalar = Label(
+        çerçeve4,
+        bg = "#f0f0f0", fg = "#000000", font = ("Arial"),
+        text = "Müzikçalar"
+)
 
 oynatma_listesi = Listbox(
         çerçeve4,
+        bg = "#F5F1F0",
+        height = 12,
         selectmode = SINGLE,
 ) 
 
 pygame.init()
 pygame.mixer.init()
+
+def içe_aktar():
+    directory = askdirectory()
+    os.chdir(directory)
+    şarkı_listesi = os.listdir()
+    for şarkı in şarkı_listesi :
+        if şarkı[-4:] == ".mp3" :
+            sıra = 0
+            oynatma_listesi.insert(sıra, şarkı)
+        else:
+            pass
 
 def oynat():
     pygame.mixer.music.load(oynatma_listesi.get(ACTIVE))
@@ -180,16 +228,15 @@ def bitir():
 
 def durdur():
     pygame.mixer.music.pause()
+    durdurma_btn.config(command = devam_et)
 
 def devam_et():
     pygame.mixer.music.unpause()
+    durdurma_btn.config(command = durdur)
 
 
 
 
-for şarkı in şarkı_listesi :
-        sıra = 0
-        oynatma_listesi.insert(sıra, şarkı)
 
 başlatma_btn = Button(
         çerçeve3,
@@ -199,7 +246,7 @@ başlatma_btn = Button(
 
 durdurma_btn = Button(
         çerçeve3,
-        image = durdur_resim,
+        image = bd_resim,
         command = durdur
 )
 
@@ -208,6 +255,13 @@ bitirme_btn = Button(
     image = bitir_resim,
     command = bitir
 )
+
+içe_aktar_btn = Button(
+    çerçeve3,
+    image = içe_aktar_resim,
+    command = içe_aktar
+)
+
 
 ### Menu
 # Menu barı
@@ -304,15 +358,16 @@ seçenekler.add_cascade(
 seçenekler.add_separator() # Seçenekler arası çizgi çeker.
 
 seçenekler.add_command(
-        label = "Çıkış",
+        label = "Çıkış", 
         command = pencere.destroy
 )
 
 # Metin
 
 metin = Text(çerçeve2,
-        relief = SUNKEN,
-        bd = 0,
+        relief = GROOVE,
+        bd = 1,
+        bg = "#F5F1F0",
         font = ("Arial", 12), 
         insertbackground = "#000000",
 )
@@ -342,19 +397,35 @@ aç_btn = Button(
 # İmza
 imza_mtn = "Dostlar\nYapım✨"
 imza = Label(
-        çerçeve4,
+        çerçeve5,
         text = imza_mtn,
         font = ("Courier", 12)
 )
+
+
+def gizli_kapı() :
+    pass
+
+el_resim1 = PhotoImage(file = r"C:\Users\Administrator\Desktop\umut\magic.png")
+el_resim = el_resim1.subsample(1 ,1)
+
+el_btn = Button(
+        çerçeve5,
+        bd = 0,
+        image = el_resim,
+        command = gizli_kapı
+)
+
+
 ### Yerleştirme
 ## Çerçeveler
 temel_çerçeve1.pack(side = LEFT, fill = Y)
 temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
 
-çerçeve1.pack()
+çerçeve1.pack(fill = BOTH, expand = True)
+çerçeve5.pack(side = BOTTOM, fill = X)
+çerçeve3.pack(side = BOTTOM, fill = X)
 çerçeve4.pack(side = BOTTOM, fill = X)
-
-çerçeve3.pack(side = BOTTOM)
 
 çerçeve2.pack(fill = BOTH, expand = True)
 
@@ -378,19 +449,21 @@ metin.pack(
 )
 
 # Çerçeve3
-başlatma_btn.grid(row = 0)
-durdurma_btn.grid(row = 0, column=1)
+başlatma_btn.grid(row = 0, column = 0)
+durdurma_btn.grid(row = 0, column = 1)
 bitirme_btn.grid(row = 0, column = 2)
-#Çerçeve4
+içe_aktar_btn.grid(row = 0, column = 3, ipadx = 5)
 
+#Çerçeve4
+müzik_çalar.pack(side = TOP)
 oynatma_listesi.pack(
-    padx = 5,
     fill = X,
     expand = True
 )
+# Çerçeve5
 
-imza.pack(pady = 10)
-
+imza.pack(side = LEFT, pady = 10)
+el_btn.pack(side = RIGHT)
 
 
 

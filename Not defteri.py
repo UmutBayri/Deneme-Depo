@@ -22,11 +22,14 @@ barındıran metin editörü.
 - 4 adet tema
 - 3 farklı font seçeneği
 - Basit arayüz
+
 Yakında :
 - Daha fazla tema
-- Optimizasyon seçenekleri
-"""
+- Optimizasyon seçenekleri(öğrenirsem)
 
+Müzikçaları kullanmak için
+müzik dosyalarının olduğu klasörü 
+en sağdaki tuşla içe aktarın."""
 def rehber_aç() :
     messagebox.showinfo("Nasıl Kullanılır ?", hakkında_yazısı)
 # Fonk Kaydetme Açma
@@ -188,10 +191,10 @@ temel_çerçeve2 = Frame(pencere)
 çerçeve5 = Frame(temel_çerçeve1)
 
 ### Müzik
-başlat_resim = PhotoImage(file = "başlat.png")
-bd_resim = PhotoImage(file = "bd.png")
-bitir_resim = PhotoImage(file = "bitir.png")
-içe_aktar_resim = PhotoImage(file = "içe aktar.png")
+başlat_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\başlat.png")
+bd_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\bd.png")
+bitir_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\bitir.png")
+içe_aktar_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\içe aktar.png")
 
 müzik_çalar = Label(
         çerçeve4,
@@ -322,6 +325,17 @@ tema_sçnk.add_command(
 
 # Yazı Seçenekleri
 #- Fontlar
+
+def font_değiş_standart() :
+    metin.config(font = ("Arial"))
+
+def font_değiş_times() :
+    metin.config(font = ("Times"))
+
+def font_değiş_verdana() :
+    metin.config(font = ("Verdana"))
+
+
 yazı_sçnk = Menu(seçenekler, tearoff = 0)
 
 font_sçnk = Menu(yazı_sçnk, tearoff = 0)
@@ -333,15 +347,18 @@ yazı_sçnk.add_cascade(
 
 font_sçnk.add_command(
         label = "Standart (Arial)",
-        font = ("Arial", 8)
+        font = ("Arial", 8),
+        command = font_değiş_standart
 )
 
 font_sçnk.add_command(
-        label = "Font2"
+        label = "Times",
+        command = font_değiş_times
 )
 
 font_sçnk.add_command(
-        label = "Font3"
+        label = "Verdana",
+        command = font_değiş_verdana
 )
 
 # Menu Yerleştirme
@@ -414,7 +431,7 @@ def gizli_kapı_sağ():
     temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
     el_btn.config(command = gizli_kapı_sol)
 
-el_resim1 = PhotoImage(file = r"C:\Users\Administrator\Desktop\umut\magic.png")
+el_resim1 = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\magic.png")
 el_resim = el_resim1.subsample(1 ,1)
 
 el_btn = Button(

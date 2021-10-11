@@ -9,9 +9,11 @@ import os
 # Pencere
 
 pencere = Tk()
-pencere.title("Not Defterim🖋️")
+pencere.title("Not Defterim")
 pencere.resizable(False, False)
 pencere.geometry("800x500+200+200")
+not_defteri = r"C:\Users\Administrator\Desktop\resimler\not defteri.ico"
+pencere.iconbitmap(not_defteri)
 
 ## Fonksiyonlar
 hakkında_yazısı = \
@@ -26,17 +28,23 @@ barındıran metin editörü.
 Yakında :
 - Daha fazla tema
 - Optimizasyon seçenekleri(öğrenirsem)
+- Seçilen müzik dosyalarını hatırlama
 
 Müzikçaları kullanmak için
 müzik dosyalarının olduğu klasörü 
 en sağdaki tuşla içe aktarın."""
+
 def rehber_aç() :
-    messagebox.showinfo("Nasıl Kullanılır ?", hakkında_yazısı)
-# Fonk Kaydetme Açma
+    messagebox.showinfo(
+    title = "Nasıl Kullanılır ?",
+    message = hakkında_yazısı, 
+    icon = "question",
+)
+
 def iletişim_link_aç() :
     webbrowser.open("https://github.com/UmutBayri")        
 
-
+# Fonk Kaydetme Açma
 def dosya_aç():
     """Open a file for editing."""
     filepath = askopenfilename(

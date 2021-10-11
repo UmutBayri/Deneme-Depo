@@ -131,23 +131,23 @@ def tema_değiştir_mrrobot() :
         bd = 0, 
         font = ("Terminal", 12), 
         insertbackground = "green")
-    imza.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
+    imza.config(bg = "#4B926F", fg = "#000000", font = ("Terminal", 12))
     oynatma_listesi.config(bg = "#4B926F", fg = "#000000")
     el_btn.config(bg = "#4B926F")
-    müzik_çalar.config(bg = "#4B926F", fg = "#000000", font = ("Terminal"))
+    müzik_çalar.config(bg = "#4B926F", fg = "#000000", font = ("Terminal", 10))
 
 
     kaydet_btn.config(
         bg = "#4B926F",
         fg = "#000000",
         activebackground = "#6FE5AA", 
-        font = ("Terminal")
+        font = ("Terminal", 11)
         )
     aç_btn.config(
         bg = "#4B926F",
         fg = "#000000",
         activebackground = "#6FE5AA",
-        font = ("Terminal")
+        font = ("Terminal", 11)
         )
 def tema_değiştir_prenses() :
     çerçeve1.config(bg = "#EDD3CD")
@@ -158,19 +158,20 @@ def tema_değiştir_prenses() :
 
     metin.config(bg = "#EBDFDC", fg = "#000000", bd = 0, font = ("Candara", 12), 
     insertbackground = "#000000")
-    imza.config(bg = "#EDD3CD", font = ("Courier"))
+    imza.config(bg = "#EDD3CD", fg = "#000000", font = ("Courier"))
     oynatma_listesi.config(bg = "#EDD3CD", fg = "#000000")
     el_btn.config(bg = "#EDD3CD")
     müzik_çalar.config(bg = "#EDD3CD", fg = "#000000", font = ("Candara"))
 
-
     kaydet_btn.config(
         bg = "#EDD3CD",
+        fg = "#000000",
         activebackground = "#EDD9CD", 
         font = ("Candara")
         )
     aç_btn.config(
         bg = "#EDD3CD",
+        fg = "#000000",
         activebackground = "#EDD9CD",
         font = ("Candara")
         ) 
@@ -403,8 +404,15 @@ imza = Label(
 )
 
 
-def gizli_kapı() :
-    pass
+def gizli_kapı_sol():
+    temel_çerçeve1.pack(side = RIGHT, fill = BOTH)
+    temel_çerçeve2.pack(side = LEFT, fill = Y)
+    el_btn.config(command = gizli_kapı_sağ)
+
+def gizli_kapı_sağ():
+    temel_çerçeve1.pack(side = LEFT, fill = Y)
+    temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
+    el_btn.config(command = gizli_kapı_sol)
 
 el_resim1 = PhotoImage(file = r"C:\Users\Administrator\Desktop\umut\magic.png")
 el_resim = el_resim1.subsample(1 ,1)
@@ -413,7 +421,7 @@ el_btn = Button(
         çerçeve5,
         bd = 0,
         image = el_resim,
-        command = gizli_kapı
+        command = gizli_kapı_sol
 )
 
 
@@ -460,8 +468,8 @@ oynatma_listesi.pack(
     fill = X,
     expand = True
 )
-# Çerçeve5
 
+# Çerçeve5
 imza.pack(side = LEFT, pady = 10)
 el_btn.pack(side = RIGHT)
 

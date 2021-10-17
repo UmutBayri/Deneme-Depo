@@ -1,1 +1,1 @@
-resimler dosyasını masaüstüne attıktan sonra kodu çalıştırabilirsin.
+Arayüz tasarımlarımı paylaşıyorum, geri bildirimde bulunursanız sevinirim.

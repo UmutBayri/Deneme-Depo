@@ -7,12 +7,11 @@ import webbrowser
 import os
 
 # Pencere
-
 pencere = Tk()
 pencere.title("Not Defterim")
 pencere.resizable(False, False)
 pencere.geometry("800x500+200+200")
-not_defteri = r"C:\Users\Administrator\Desktop\resimler\not defteri.ico"
+not_defteri = r"YourPath\not defteri.ico"
 pencere.iconbitmap(not_defteri)
 
 ## Fonksiyonlar
@@ -71,9 +70,7 @@ def dosya_kaydet():
         output_file.write(text)
     pencere.title(f"Simple Text Editor - {filepath}")
 
-
 # Fonk Tema
-
 def tema_değiştir_standart() :
     
     çerçeve1.config(bg = "#f0f0f0")
@@ -87,7 +84,6 @@ def tema_değiştir_standart() :
     oynatma_listesi.config(bg = "#F5F1F0", fg = "#000000")
     el_btn.config(bg = "#f0f0f0")
     müzik_çalar.config(bg = "#f0f0f0", fg = "#000000", font = ("Arial"))
-
 
     kaydet_btn.config(
         bg = "#f0f0f0",
@@ -191,7 +187,6 @@ def tema_değiştir_prenses() :
 temel_çerçeve1 = Frame(pencere)
 temel_çerçeve2 = Frame(pencere)
 
-
 çerçeve1 = Frame(temel_çerçeve1)
 çerçeve2 = Frame(temel_çerçeve2)
 çerçeve3 = Frame(temel_çerçeve1, relief = GROOVE, bd = 2)
@@ -199,10 +194,10 @@ temel_çerçeve2 = Frame(pencere)
 çerçeve5 = Frame(temel_çerçeve1)
 
 ### Müzik
-başlat_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\başlat.png")
-bd_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\bd.png")
-bitir_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\bitir.png")
-içe_aktar_resim = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\içe aktar.png")
+başlat_resim = PhotoImage(file = r"YourPath\resimler\başlat.png")
+bd_resim = PhotoImage(file = r"YourPath\resimler\bd.png")
+bitir_resim = PhotoImage(file = r"YourPath\resimler\bitir.png")
+içe_aktar_resim = PhotoImage(file = r"YourPath\resimler\içe aktar.png")
 
 müzik_çalar = Label(
         çerçeve4,
@@ -246,10 +241,6 @@ def devam_et():
     pygame.mixer.music.unpause()
     durdurma_btn.config(command = durdur)
 
-
-
-
-
 başlatma_btn = Button(
         çerçeve3,
         image = başlat_resim,
@@ -273,7 +264,6 @@ içe_aktar_btn = Button(
     image = içe_aktar_resim,
     command = içe_aktar
 )
-
 
 ### Menu
 # Menu barı
@@ -305,7 +295,6 @@ hakkında.add_command(
 
 ## Seçenekler listesi
 # Tema
-
 tema_sçnk = Menu(seçenekler, tearoff = 0)
 
 tema_sçnk.add_command(
@@ -333,7 +322,6 @@ tema_sçnk.add_command(
 
 # Yazı Seçenekleri
 #- Fontlar
-
 def font_değiş_standart() :
     metin.config(font = ("Arial"))
 
@@ -342,7 +330,6 @@ def font_değiş_times() :
 
 def font_değiş_verdana() :
     metin.config(font = ("Verdana"))
-
 
 yazı_sçnk = Menu(seçenekler, tearoff = 0)
 
@@ -370,7 +357,6 @@ font_sçnk.add_command(
 )
 
 # Menu Yerleştirme
-
 seçenekler.add_cascade(
         label = "Metin",
         menu = yazı_sçnk
@@ -428,7 +414,6 @@ imza = Label(
         font = ("Courier", 12)
 )
 
-
 def gizli_kapı_sol():
     temel_çerçeve1.pack(side = RIGHT, fill = BOTH)
     temel_çerçeve2.pack(side = LEFT, fill = Y)
@@ -439,7 +424,7 @@ def gizli_kapı_sağ():
     temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
     el_btn.config(command = gizli_kapı_sol)
 
-el_resim1 = PhotoImage(file = r"C:\Users\Administrator\Desktop\resimler\magic.png")
+el_resim1 = PhotoImage(file = r"YourPath\resimler\magic.png")
 el_resim = el_resim1.subsample(1 ,1)
 
 el_btn = Button(
@@ -448,7 +433,6 @@ el_btn = Button(
         image = el_resim,
         command = gizli_kapı_sol
 )
-
 
 ### Yerleştirme
 ## Çerçeveler
@@ -459,9 +443,7 @@ temel_çerçeve2.pack(side = RIGHT, fill = BOTH)
 çerçeve5.pack(side = BOTTOM, fill = X)
 çerçeve3.pack(side = BOTTOM, fill = X)
 çerçeve4.pack(side = BOTTOM, fill = X)
-
 çerçeve2.pack(fill = BOTH, expand = True)
-
 
 # Çerçeve1
 kaydet_btn.pack(
@@ -497,7 +479,6 @@ oynatma_listesi.pack(
 # Çerçeve5
 imza.pack(side = LEFT, pady = 10)
 el_btn.pack(side = RIGHT)
-
 
 
 pencere.mainloop()
